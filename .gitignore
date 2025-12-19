@@ -25,6 +25,9 @@ runs/
 # Logs
 *.log
 
+# Signal Spectra project (not needed for main app)
+ECE\ 34/Signal\ Spectra\ ECE\ 34/
+
 # Kaggle kernels (temporary)
 tmp_kaggle_*/
 
