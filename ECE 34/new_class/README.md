@@ -1,17 +1,17 @@
-# Crop Health and Monitoring System (new_class)
+# Crop Health and Monitoring System
 
 A concise guide to set up, run, train, and evaluate the crop disease detection/classification app in this folder.
 
 ## Overview
 
-- Flask server streams video, detects and classifies leaf diseases, logs results, and optionally reads Arduino sensors.
+- Flask server streams video, detects and classifies leaf diseases, logs results, and reads Arduino sensors.
 - Supports local webcam or ESP32-CAM MJPEG stream.
 - Uses Ultralytics YOLOv8 for detection and classification.
 
 ## Requirements
 
 - Python 3.10+ recommended
-- Packages: ultralytics, opencv-python, flask, pillow, requests, pyserial (optional for Arduino)
+- Packages: ultralytics, opencv-python, flask, pillow, requests, pyserial(for arduino
 
 Install into your existing virtual environment (from repository root):
 
@@ -114,6 +114,27 @@ Notes:
 
 - Model: `yolov8s-cls.pt` backbone; outputs saved under `runs/classifier_rice/weights`.
 - Auto-selects GPU if available, otherwise CPU.
+
+## Train Classifier (Generic)
+
+Use `train_classifier.py` to train a classifier for any crop with a dataset organized as `crop_classifier_dataset/{train,val}/{class...}`.
+
+```powershell
+# Potato
+python train_classifier.py --data "ECE 34\new_class\potato_classifier_dataset" --crop potato --epochs 50
+
+# Chili
+python train_classifier.py --data "ECE 34\new_class\chili_classifier_dataset" --crop chili --epochs 50
+
+# Tomato
+python train_classifier.py --data "ECE 34\new_class\tomato_classifier_dataset" --crop tomato --epochs 50
+
+# Rice (generic)
+python train_classifier.py --data "ECE 34\new_class\rice_classifier_dataset" --crop rice --epochs 50
+```
+
+Notes:
+- `train_rice_enhanced.py` includes tuned augmentations and settings specifically for rice; use the generic `train_classifier.py` for other crops or when you want uniform settings.
 
 ## Evaluate Model Accuracy
 
