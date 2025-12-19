@@ -75,6 +75,34 @@ ECE 34/new_class/rice_classifier_dataset/
 
 Class folder names must match keys in `leaf_classes` for the crop in `crops_config.json`.
 
+### Dataset Management
+
+- `import_datasets.py`: Generic utilities to organize local/Kaggle datasets for detector/classifier training.
+- `download_datasets.py`: One-click downloader that fetches original datasets from Kaggle (PlantVillage for Tomato/Chili, Potato subset, Rice diseases) and organizes them into `archive_datasets/{crop}_classifier_dataset/{train,val}` with an 80/20 split.
+
+Quick usage:
+
+```powershell
+# Set up Kaggle API (once)
+python import_datasets.py --setup-kaggle
+
+# Preview planned downloads
+python download_datasets.py --all --dry-run
+
+# Download specific crops
+python download_datasets.py --crops tomato chili
+python download_datasets.py --crops potato
+python download_datasets.py --crops rice
+
+# Force re-download
+python download_datasets.py --crops tomato --force
+```
+
+Notes:
+- Large datasets like Rice may be several GB and take time to download.
+- Ensure `%USERPROFILE%\.kaggle\kaggle.json` exists for Kaggle API access.
+ - `DATASET_STATUS.md` has been removed; use `download_datasets.py` to fetch and verify datasets.
+
 ## Train the Rice Classifier
 
 - Ensure dataset exists at `ECE 34/new_class/rice_classifier_dataset` as shown above.
