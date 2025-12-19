@@ -63,7 +63,7 @@ pip install kaggle
 **Downloads:**
 1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
 2) Download All Files
-3) Put all files to `ECE 34/new_class/`
+3) Put all files to folder named: `ECE 34` and inside `ECE 34` create a new folder named `new_class`
 
 **Included models:**
 - `detector.pt` (5.96 MB) - Main object detector
