@@ -26,7 +26,7 @@ See [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md) for comprehensi
 
 ## Project Structure
 
-```
+
 ECE 34/
   new_class/           # Main application
     app.py             # Flask server
@@ -39,7 +39,7 @@ ECE 34/
 
 ## Installation
 
-```powershell
+#
 # Clone repository
 git clone <your-repo-url>
 cd "ECE 34 (1)"
@@ -97,7 +97,7 @@ crop_classifier_dataset/
 
 Quick usage (PowerShell):
 
-```powershell
+
 # Set up Kaggle API (once)
 python "ECE 34\new_class\import_datasets.py" --setup-kaggle
 
@@ -137,28 +137,23 @@ Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
 - `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
-### Install
+ 
+```powershell
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 ```powershell
-# Windows (PowerShell) — run from the repository root
-python -m venv .venv
-& ".\.venv\Scripts\Activate.ps1"
-Full documentation including architecture, API endpoints, and code walkthrough: [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
-& ".\.venv\Scripts\python.exe" -m pip install -U pip
-& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
 
-MIT
-
-## Acknowledgments
-
-### Run
-
-```powershell
-$env:ENABLE_IMAGE_ENHANCEMENT = "true"
-$env:ENABLE_SERIAL_READER = "true"
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
-- PlantVillage Dataset
-### Train Rice (optional)
-
-```powershell
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
