@@ -28,7 +28,7 @@ See [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md) for comprehensi
 
 ## Project Structure
 
-```text
+```
 ECE 34/
   new_class/           # Main application
     app.py             # Flask server
@@ -37,7 +37,7 @@ ECE 34/
     *.py               # Training & evaluation scripts
     templates/         # HTML templates
     static/            # Static assets
-
+```
 
 ## Installation
 
@@ -46,21 +46,21 @@ git clone <your-repo-url>
 cd "ECE 34 (1)"
 
 # Create virtual environment
-python -m venv ECE\ 34/.venv
-& "ECE 34\.venv\Scripts\Activate.ps1"
+``python -m venv ECE\ 34/.venv
+& "ECE 34\.venv\Scripts\Activate.ps1"``
 
 # Install dependencies
-pip install ultralytics opencv-python flask pillow requests pyserial
+``pip install ultralytics opencv-python flask pillow requests pyserial``
 
 # Optional (dataset tools)
 # Only needed if you will download datasets via Kaggle
-pip install kaggle
+``pip install kaggle``
 
 # Notes:
 # - Ultralytics will install PyTorch automatically; GPU is used if available.
 # - If using ESP32-CAM, no extra package is required (HTTP MJPEG stream).
 # - For Raspberry Pi, these defaults are tuned for CPU-only performance.
-```
+
 
 ## Model Files & Datasets
 
