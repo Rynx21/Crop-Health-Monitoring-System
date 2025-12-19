@@ -17,6 +17,8 @@ Install into your existing virtual environment:
 
 ```powershell
 & "C:\Users\FSOS\Desktop\ECE 34 (1)\ECE 34\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
+# Optional: Kaggle (only if you'll use import_datasets.py to download datasets)
+& "C:\Users\FSOS\Desktop\ECE 34 (1)\ECE 34\.venv\Scripts\python.exe" -m pip install kaggle
 ```
 
 ## Configuration
