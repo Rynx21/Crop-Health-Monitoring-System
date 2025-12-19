@@ -13,12 +13,14 @@ A Flask-based web application for real-time crop disease detection and classific
 - 🖼️ Configurable image enhancement
 - 🥧 Raspberry Pi optimized
 
-## Supported Crops(more crops will be supported in the future)
+## Supported Crops
 
 - **Tomato** - 10 disease classes
 - **Potato** - 3 disease classes
 - **Chili Pepper** - 2 disease classes
 - **Rice** - 4 disease classes
+
+More crops will be supported in the future.
 
 ## Quick Start
 
@@ -26,7 +28,7 @@ See [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md) for comprehensi
 
 ## Project Structure
 
-
+```text
 ECE 34/
   new_class/           # Main application
     app.py             # Flask server
@@ -35,11 +37,10 @@ ECE 34/
     *.py               # Training & evaluation scripts
     templates/         # HTML templates
     static/            # Static assets
-```
+
 
 ## Installation
 
-#
 # Clone repository
 git clone <your-repo-url>
 cd "ECE 34 (1)"
@@ -97,7 +98,7 @@ crop_classifier_dataset/
 
 Quick usage (PowerShell):
 
-
+```powershell
 # Set up Kaggle API (once)
 python "ECE 34\new_class\import_datasets.py" --setup-kaggle
 
