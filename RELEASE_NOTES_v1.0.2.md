@@ -114,21 +114,48 @@ IS_PI = 'arm' in platform.machine().lower() or 'aarch' in platform.machine().low
 
 ## 🚀 Upgrade Instructions
 
+### For Users Without Local Modifications
+
 1. **Pull latest changes:**
    ```powershell
    git pull origin main
    ```
 
-2. **No additional dependencies required** - uses existing OpenCV installation
+### For Users With Local Customizations
 
-3. **Test enhancement toggle:**
+1. **Save your changes first:**
+   ```powershell
+   # Check what you've modified
+   git status
+   
+   # Option A: Stash your changes
+   git stash
+   git pull origin main
+   git stash pop  # Re-apply your changes (may need to resolve conflicts)
+   
+   # Option B: Commit your changes first
+   git add .
+   git commit -m "My local customizations"
+   git pull origin main  # May need to resolve merge conflicts
+   ```
+
+2. **If you get merge conflicts in app.py:**
+   - The main changes are in the image enhancement functions (lines ~49-90)
+   - And in the `generate_frames()` function (lines ~413, ~456)
+   - Carefully merge or accept incoming changes for DSP improvements
+
+### Post-Upgrade Steps
+
+3. **No additional dependencies required** - uses existing OpenCV installation
+
+4. **Test enhancement toggle:**
    ```powershell
    # Disable enhancements if needed
    $env:ENABLE_IMAGE_ENHANCEMENT="false"
    python "ECE 34\new_class\app.py"
    ```
 
-4. **Verify performance on RPi4:**
+5. **Verify performance on RPi4:**
    - Check frame rate maintains 20-25 FPS
    - Monitor CPU usage (should stay under 80%)
    - Test in various lighting conditions
