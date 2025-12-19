@@ -42,7 +42,7 @@ ECE 34/
 ```powershell
 # Clone repository
 git clone https://github.com/Rynx21/Crop-Health-Monitoring-System.git
-cd Crop-Health-Monitoring-System
+cd "Crop-Health-Monitoring-System"
 
 # Windows (PowerShell) — create and activate venv
 python -m venv .venv
