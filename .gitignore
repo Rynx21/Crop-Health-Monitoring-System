@@ -22,11 +22,8 @@ archived_files/
 # Training outputs
 runs/
 
-# Logs and data (exclude detection_log.csv)
+# Logs
 *.log
-image_coeffs.csv
-audio_coeffs.csv
-processing_log.csv
 
 # Kaggle kernels (temporary)
 tmp_kaggle_*/
