@@ -115,6 +115,27 @@ Notes:
 - Model: `yolov8s-cls.pt` backbone; outputs saved under `runs/classifier_rice/weights`.
 - Auto-selects GPU if available, otherwise CPU.
 
+## Train Classifier (Generic)
+
+Use `train_classifier.py` to train a classifier for any crop with a dataset organized as `crop_classifier_dataset/{train,val}/{class...}`.
+
+```powershell
+# Potato
+python train_classifier.py --data "ECE 34\new_class\potato_classifier_dataset" --crop potato --epochs 50
+
+# Chili
+python train_classifier.py --data "ECE 34\new_class\chili_classifier_dataset" --crop chili --epochs 50
+
+# Tomato
+python train_classifier.py --data "ECE 34\new_class\tomato_classifier_dataset" --crop tomato --epochs 50
+
+# Rice (generic)
+python train_classifier.py --data "ECE 34\new_class\rice_classifier_dataset" --crop rice --epochs 50
+```
+
+Notes:
+- `train_rice_enhanced.py` includes tuned augmentations and settings specifically for rice; use the generic `train_classifier.py` for other crops or when you want uniform settings.
+
 ## Evaluate Model Accuracy
 
 - Evaluates all enabled crops against discovered `val/` datasets.
