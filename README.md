@@ -28,7 +28,7 @@ See [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md) for comprehensi
 
 ## Project Structure
 
-``
+```
 ECE 34/
   new_class/           # Main application
     app.py             # Flask server
@@ -37,7 +37,7 @@ ECE 34/
     *.py               # Training & evaluation scripts
     templates/         # HTML templates
     static/            # Static assets
-``
+```
 
 ## Installation
 
