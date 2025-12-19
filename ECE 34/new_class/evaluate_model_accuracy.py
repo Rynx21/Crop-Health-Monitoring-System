@@ -25,6 +25,8 @@ def find_validation_dataset(crop_name):
     root = BASE_DIR.parent.parent  # ECE 34 (1) folder
     
     possible_paths = [
+        # In archive_datasets
+        BASE_DIR / 'archive_datasets' / f'{crop_name}_classifier_dataset' / 'val',
         # In archived_files
         BASE_DIR / 'archived_files' / 'unused_datasets' / f'{crop_name}_classifier_dataset' / 'val',
         # In root
@@ -75,7 +77,7 @@ def evaluate_classifier(model_path, val_dir):
                     images_by_class[class_name].append(img_file)
     
     if not images_by_class:
-        print("  ⚠ No validation images found")
+        print("  ! No validation images found")
         return None
     
     # Run inference and collect results
@@ -129,7 +131,7 @@ def evaluate_classifier(model_path, val_dir):
 def display_results(crop_name, results):
     """Display evaluation results in a formatted way"""
     if not results:
-        print(f"  ⚠ No results available\n")
+        print(f"  ! No results available\n")
         return
     
     print(f"\n  {'='*60}")
@@ -142,14 +144,14 @@ def display_results(crop_name, results):
     print(f"  {'-'*60}")
     
     for class_name, stats in sorted(results['class_stats'].items()):
-        print(f"  📊 {class_name}")
+        print(f"  [CLASS] {class_name}")
         print(f"     Accuracy: {stats['accuracy']:.2f}% ({stats['correct']}/{stats['total']})")
         
         if len(stats['predictions']) > 1:
             print(f"     Predictions breakdown:")
             for pred_class, count in sorted(stats['predictions'].items(), key=lambda x: x[1], reverse=True):
                 percentage = (count / stats['total'] * 100)
-                marker = "✓" if pred_class == class_name else "✗"
+                marker = "[OK]" if pred_class == class_name else "[ERR]"
                 print(f"       {marker} {pred_class}: {count} ({percentage:.1f}%)")
         print()
 
@@ -167,31 +169,31 @@ def main():
             continue
         
         print(f"\n{'='*70}")
-        print(f"🌱 Evaluating {crop_data['name']} ({crop_id})")
+        print(f"[CROP] Evaluating {crop_data['name']} ({crop_id})")
         print(f"{'='*70}")
         
         classifier_model = crop_data.get('classifier_model')
         if not classifier_model:
-            print("  ⚠ No classifier model configured")
+            print("  ! No classifier model configured")
             continue
         
         model_path = BASE_DIR / classifier_model
         if not model_path.exists():
-            print(f"  ⚠ Model file not found: {classifier_model}")
+            print(f"  ! Model file not found: {classifier_model}")
             continue
         
         # Find validation dataset
         val_dir = find_validation_dataset(crop_id)
         if not val_dir:
-            print(f"  ⚠ Validation dataset not found for {crop_id}")
-            print(f"     Expected: {crop_id}_classifier_dataset/val/")
-            print(f"     Searched in:")
-            print(f"       - archived_files/unused_datasets/")
-            print(f"       - Root directory and subdirectories")
-            print(f"     → Please ensure validation dataset exists with class subfolders")
+            print(f"  ! Validation dataset not found for {crop_id}")
+            print(f"    Expected: {crop_id}_classifier_dataset/val/")
+            print(f"    Searched in:")
+            print(f"      - new_class/archive_datasets/")
+            print(f"      - Root directory and subdirectories")
+            print(f"    -> Please ensure validation dataset exists with class subfolders")
             continue
         
-        print(f"  📁 Validation dataset: {val_dir.relative_to(BASE_DIR.parent.parent)}")
+        print(f"  [PATH] Validation dataset: {val_dir.relative_to(BASE_DIR.parent.parent)}")
         
         # Evaluate model
         start_time = time.time()
