@@ -90,6 +90,34 @@ crop_classifier_dataset/
     Class2/
 ```
 
+### Dataset Management
+
+- Use the downloader in the app folder to fetch original datasets and organize them into `archive_datasets/{crop}_classifier_dataset/{train,val}` with an 80/20 split.
+- Script: see [ECE 34/new_class/download_datasets.py](ECE%2034/new_class/download_datasets.py)
+
+Quick usage (PowerShell):
+
+```powershell
+# Set up Kaggle API (once)
+python "ECE 34\new_class\import_datasets.py" --setup-kaggle
+
+# Preview planned downloads
+python "ECE 34\new_class\download_datasets.py" --all --dry-run
+
+# Download specific crops
+python "ECE 34\new_class\download_datasets.py" --crops tomato chili
+python "ECE 34\new_class\download_datasets.py" --crops potato
+python "ECE 34\new_class\download_datasets.py" --crops rice
+
+# Force re-download
+python "ECE 34\new_class\download_datasets.py" --crops tomato --force
+```
+
+Notes:
+- Large datasets like Rice may be several GB and take time to download.
+- Ensure `%USERPROFILE%\.kaggle\kaggle.json` exists for Kaggle API access.
+- `DATASET_STATUS.md` was removed; use the downloader for fetching and verification.
+
 ## Usage
 
 ```powershell
