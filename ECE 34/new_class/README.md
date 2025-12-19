@@ -1,4 +1,4 @@
-# Smart Agriculture App (new_class)
+# Crop Health and Monitoring System (new_class)
 
 A concise guide to set up, run, train, and evaluate the crop disease detection/classification app in this folder.
 

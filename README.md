@@ -1,4 +1,4 @@
-# Smart Agriculture - Multi-Crop Disease Detection System
+# Crop Health and Monitoring System
 
 A Flask-based web application for real-time crop disease detection and classification using YOLOv8. Supports multiple crops (Tomato, Potato, Chili, Rice) with both local webcam and ESP32-CAM integration, plus Arduino sensor monitoring.
 
