@@ -20,8 +20,6 @@ A Flask-based web application for real-time crop disease detection and classific
 - **Chili Pepper** - 2 disease classes
 - **Rice** - 4 disease classes
 
-More crops will be supported in the future.
-
 ## Quick Start
 
 See [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md) for comprehensive setup, usage, and code documentation.
@@ -41,18 +39,17 @@ ECE 34/
 
 ## Installation
 
-**Clone repository**
-- ```git clone <your-repo-url> && cd "ECE 34 (1)" ```
+```powershell
+# Clone repository
+git clone <your-repo-url>
+cd <repo-folder>
 
-**Create virtual environment**
-- ```python -m venv ECE\ 34/.venv & "ECE 34\.venv\Scripts\Activate.ps1"```
-
-**Install dependencies**
-- ```pip install ultralytics opencv-python flask pillow requests pyserial```
-
-**Optional (dataset tools)**
-  Only needed if you will download datasets via Kaggle
-- ```pip install kaggle```
+# Windows (PowerShell) — create and activate venv
+python -m venv .venv
+& ".\.venv\Scripts\Activate.ps1"
+& ".\.venv\Scripts\python.exe" -m pip install -U pip
+& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
+```
 
 ## Notes: ##
  - Ultralytics will install PyTorch automatically; GPU is used if available.
@@ -60,11 +57,19 @@ ECE 34/
  - For Raspberry Pi, these defaults are tuned for CPU-only performance.
 
 
-## Model Files & Datasets ##
+## Model Files & Datasets
 
-**Included models:**
+**Model files (`.pt`) are available in [GitHub Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases).**
+
+### Download Pre-trained Models
+
+1. Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
+2. Download `models.zip` from the latest release
+3. Extract all `.pt` files to `ECE 34/new_class/`
+
+**Required models (82 MB total):**
 - `detector.pt` (5.96 MB) - Main object detector
-- `classifier.pt` (2.83 MB) - Fallback classifier
+- `classifier.pt` (2.83 MB) - Default classifier
 - `tomato_classifier.pt` (9.81 MB)
 - `potato_classifier.pt` (9.78 MB)
 - `chili_classifier.pt` (9.78 MB)
@@ -89,73 +94,36 @@ crop_classifier_dataset/
     Class2/
 ```
 
-### Dataset Management ##
-
-- Use the downloader in the app folder to fetch original datasets and organize them into `archive_datasets/{crop}_classifier_dataset/{train,val}` with an 80/20 split.
-- Script: see [ECE 34/new_class/download_datasets.py](ECE%2034/new_class/download_datasets.py)
-
-Quick usage (Terminal):
-
-```powershell
-# Set up Kaggle API (once)
-python "ECE 34\new_class\import_datasets.py" --setup-kaggle
-
-# Preview planned downloads
-python "ECE 34\new_class\download_datasets.py" --all --dry-run
-
-# Download specific crops
-python "ECE 34\new_class\download_datasets.py" --crops tomato chili
-python "ECE 34\new_class\download_datasets.py" --crops potato
-python "ECE 34\new_class\download_datasets.py" --crops rice
-
-# Force re-download
-python "ECE 34\new_class\download_datasets.py" --crops tomato --force
-```
-
-Notes:
-- Large datasets like Rice may be several GB and take time to download.
-- Ensure `%USERPROFILE%\.kaggle\kaggle.json` exists for Kaggle API access.
-- `DATASET_STATUS.md` was removed; use the downloader for fetching and verification.
-
-## Usage ##
+## Usage
 
 ```powershell
 # Run the server
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
 
 # Train rice classifier (example)
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
 
 # Evaluate model accuracy
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\evaluate_model_accuracy.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\evaluate_model_accuracy.py"
 ```
 
-## Configuration ##
+## Configuration
 
 Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
 - `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
 
-### Full documentation including architecture, API endpoints, and code walkthrough: 
-[`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
+## Documentation
 
-### Install
-```powershell
-# Windows (PowerShell) — run from the repository root
-python -m venv .venv
-& ".\.venv\Scripts\Activate.ps1"
-& ".\.venv\Scripts\python.exe" -m pip install -U pip
-& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
-```
+Full documentation including architecture, API endpoints, and code walkthrough: [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
 
-### Run
-```powershell
-$env:ENABLE_IMAGE_ENHANCEMENT = "true"
-$env:ENABLE_SERIAL_READER = "true"
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
-```
-### Train Rice (optional)
-```powershell
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
-```
+## License
+
+# MIT
+
+## Acknowledgments
+
+- Ultralytics YOLOv8
+- PlantVillage Dataset
+- OpenWeatherMap API
