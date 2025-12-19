@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Model files (too large for GitHub)
+*.pt
+
+# Datasets (download separately)
+*_dataset/
+*_download/
+temp_*/
+archived_datasets/
+archived_files/
+
+# Training outputs
+runs/
+
+# Logs and data
+*.csv
+*.log
+
+# Kaggle kernels (temporary)
+tmp_kaggle_*/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/

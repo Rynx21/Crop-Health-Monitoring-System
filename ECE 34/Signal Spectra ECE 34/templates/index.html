@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realtime Adaptive Filter with NLP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, #0d1b3a, #121c38);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding-top: 80px;
+    }
+    .navbar-custom {
+      background: linear-gradient(to right, #0a1a2b, #0f2a4b);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      border-radius: 8px;
+    }
+    .card-custom {
+      background-color: #0a1a2b;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    }
+    .card-title {
+      color: #fff;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .img-thumb { 
+      cursor: pointer; 
+      max-height: 160px; 
+      object-fit: contain; 
+      border-radius: 8px;
+      border: 1px solid #555;
+    }
+    .card-grid { 
+      gap: 0.8rem; 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    }
+    .results-horizontal {
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 0.8rem; 
+      justify-content: start;
+    }
+    .results-horizontal .card-custom { flex: 1 1 30%; min-width: 180px; }
+    .small-muted { font-size: 0.85rem; color: #ccc; }
+    audio { width: 100%; margin-bottom: 10px; }
+    #debugBox, #logsBox, #speechTextBox {
+      height: 120px; 
+      overflow-y: auto; 
+      background-color: #061126; 
+      border-radius: 8px; 
+      padding: 8px; 
+      font-family: monospace; 
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+    }
+    h5.section-header {
+      color: #00d4ff;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top p-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Realtime Adaptive Filter with NLP</a>
+      <div class="text-white small" style="margin-left: 5px; font-style: italic;">
+       By: Deleña & Rapista
+      </div>
+      <div class="text-white small">Server time: <span id="server_time">{{ server_time }}</span></div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Controls & Playback Column -->
+      <div class="col-lg-3">
+        <div class="card-custom">
+          <h5 class="card-title">Controls</h5>
+          <form id="configForm" method="POST" action="/apply_config">
+            <div class="mb-2">
+              <label for="audio_duration" class="form-label">Audio Duration (s)</label>
+              <input type="number" class="form-control" id="audio_duration" name="audio_duration" value="{{ current_duration }}">
+            </div>
+            <div class="mb-2">
+              <label for="filter_type" class="form-label">Audio Filter Type</label>
+              <select class="form-select" id="filter_type" name="filter_type">
+                <option value="fir" {% if filter_type == 'fir' %}selected{% endif %}>FIR (CSV Coeffs)</option>
+                <option value="butter" {% if filter_type == 'butter' %}selected{% endif %}>Butterworth Bandpass (IIR)</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="noise_env" class="form-label">Noise Environment</label>
+              <select class="form-select" id="noise_env" name="noise_env">
+                <option value="quiet" {% if noise_env == 'quiet' %}selected{% endif %}>Quiet (Office/Home)</option>
+                <option value="noisy" {% if noise_env == 'noisy' %}selected{% endif %}>Noisy (Coffee Shop/Classroom)</option>
+                <option value="extreme" {% if noise_env == 'extreme' %}selected{% endif %}>Extreme (Construction/Traffic)</option>
+              </select>
+            </div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" id="use_files" name="use_files" {% if use_files %}checked{% endif %}>
+              <label class="form-check-label" for="use_files">Use Audio/Image Files</label>
+            </div>
+            <button type="button" class="btn btn-primary w-100 mb-2" id="runBtn">Run Processing</button>
+            <button type="submit" class="btn btn-outline-secondary w-100">Save Config</button>
+          </form>
+        </div>
+
+        <div class="card-custom">
+          <h5 class="card-title">Playback</h5>
+          <small class="small-muted">Raw Audio</small>
+          <audio id="audioRawPlayer" controls preload="none">
+            <source id="audioRawSrc" src="/audio_raw" type="audio/wav">
+          </audio>
+          <canvas id="waveformRaw" height="80" style="width:100%; margin-bottom:10px;"></canvas>
+          <small class="small-muted">Filtered Audio</small>
+          <audio id="audioFilteredPlayer" controls preload="none">
+            <source id="audioFiltSrc" src="/audio" type="audio/wav">
+          </audio>
+          <canvas id="waveformFiltered" height="80" style="width:100%;"></canvas>
+        </div>
+
+        <div class="card-custom">
+          <h5 class="card-title">Downloads</h5>
+          <a href="/export_csv" class="btn btn-success w-100 mb-2">Download CSV</a>
+          <a href="/audio_raw" class="btn btn-outline-primary w-100 mb-2" target="_blank">Download Raw Audio</a>
+          <a href="/audio" class="btn btn-outline-primary w-100 mb-2" target="_blank">Download Filtered Audio</a>
+        </div>
+
+        <!-- Advanced Features Display (Vertical) -->
+        <div class="card-custom mb-3">
+          <h5 class="card-title">Advanced Features Summary</h5>
+          <div id="advancedFeaturesList" style="max-height: 220px; overflow-y:auto; font-size:0.85rem;"></div>
+        </div>
+
+        <!-- Speech-to-Text Display -->
+        <div class="card-custom mb-3">
+          <h5 class="card-title">Speech-to-Text</h5>
+          <div id="speechTextBox"></div>
+        </div>
+
+        <!-- Debug Box -->
+        <div class="card-custom">
+          <h5 class="card-title">Debug</h5>
+          <div id="debugBox"></div>
+        </div>
+      </div>
+
+      <!-- Results Column -->
+      <div class="col-lg-9">
+        <!-- Captured Images -->
+        <h5 class="section-header">Captured Images</h5>
+        <div class="card-grid">
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Raw</small>
+            <img id="img_captured_raw" src="/captured_raw?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Gray</small>
+            <img id="img_captured_gray" src="/captured_gray?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Filtered Edges</small>
+            <img id="img_filtered_edges" src="/edges?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Filtered Image</small>
+            <img id="img_filtered" src="/filtered_image?ts=0" class="img-thumb">
+          </div>
+        </div>
+
+        <!-- Histograms -->
+        <h5 class="section-header">Histograms</h5>
+        <div class="card-grid">
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Raw</small>
+            <img id="img_hist_raw" src="/hist_raw?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Gray</small>
+            <img id="img_hist_gray" src="/hist_gray?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Edge</small>
+            <img id="img_hist_edges" src="/hist_edges?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted d-block mb-1">Filtered</small>
+            <img id="img_hist_filtered" src="/hist_filtered?ts=0" class="img-thumb">
+          </div>
+        </div>
+
+        <!-- Spectrogram & MFCC -->
+        <h5 class="section-header">Spectrogram & MFCC</h5>
+        <div class="results-horizontal">
+          <div class="card-custom text-center">
+            <small class="small-muted">Spectrogram</small>
+            <img id="img_spectrogram" src="/spectrogram?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted">MFCC Raw</small>
+            <img id="img_mfcc_raw" src="/mfcc_raw?ts=0" class="img-thumb">
+          </div>
+          <div class="card-custom text-center">
+            <small class="small-muted">MFCC Filtered</small>
+            <img id="img_mfcc" src="/mfcc?ts=0" class="img-thumb">
+          </div>
+        </div>
+
+        <!-- Processing Logs -->
+        <h5 class="section-header mt-3">Processing Logs</h5>
+        <div class="card-custom">
+          <table id="logsTable" class="table table-dark table-striped mb-0" style="width:100%; font-size:0.85rem;">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Audio RMS Before</th>
+                <th>Audio RMS After</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Log rows will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for preview -->
+  <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="previewImg" src="" style="max-width:100%; height:auto;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const runBtn = document.getElementById('runBtn');
+    const debugBox = document.getElementById('debugBox');
+
+    function appendDebug(msg) {
+      debugBox.innerText += msg + "\n";
+      debugBox.scrollTop = debugBox.scrollHeight;
+    }
+
+    async function doRunProcessing() {
+      appendDebug("Processing started...");
+      try {
+        const res = await fetch('/force_process');
+        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+        const j = await res.json();
+        const ts = Math.floor(Date.now() / 1000);
+
+        // Update images
+        const images = {
+          'captured_raw': 'img_captured_raw',
+          'captured_gray': 'img_captured_gray',
+          'edges': 'img_filtered_edges',
+          'filtered_image': 'img_filtered',
+          'hist_raw': 'img_hist_raw',
+          'hist_gray': 'img_hist_gray',
+          'hist_edges': 'img_hist_edges',
+          'hist_filtered': 'img_hist_filtered',
+          'spectrogram': 'img_spectrogram',
+          'mfcc_raw': 'img_mfcc_raw',
+          'mfcc': 'img_mfcc'
+        };
+        Object.keys(images).forEach(k => {
+          const el = document.getElementById(images[k]);
+          if(el) el.src = `/${k}?ts=${ts}`;
+        });
+
+        // Update audio sources
+        document.getElementById('audioRawSrc').src = `/audio_raw?ts=${ts}`;
+        document.getElementById('audioFiltSrc').src = `/audio?ts=${ts}`;
+        document.getElementById('audioRawPlayer').load();
+        document.getElementById('audioFilteredPlayer').load();
+
+        // Draw waveforms
+        await drawWaveform(`/audio_raw?ts=${ts}`, 'waveformRaw');
+        await drawWaveform(`/audio?ts=${ts}`, 'waveformFiltered');
+
+        // Refresh processing logs
+        await loadProcessingLogs();
+
+        // Refresh advanced features
+        await loadAdvancedFeaturesVertical();
+
+        // Refresh speech-to-text
+        await loadSpeechText();
+
+        appendDebug("Processing completed!");
+      } catch(err) {
+        appendDebug("Error: " + err.message);
+        console.error(err);
+      }
+    }
+
+    async function loadProcessingLogs() {
+      try {
+        const response = await fetch('/processing_log.csv?ts=' + Date.now());
+        if (!response.ok) throw new Error('Failed to load CSV');
+        const csvText = await response.text();
+        const rows = csvText.trim().split('\n');
+        const tbody = document.querySelector('#logsTable tbody');
+        tbody.innerHTML = '';
+
+        rows.slice(1).reverse().forEach(row => {
+          const cols = row.split(',');
+          const tr = document.createElement('tr');
+          cols.forEach(col => {
+            const td = document.createElement('td');
+            td.textContent = col.trim();
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Error loading processing logs:', err);
+      }
+    }
+
+    async function drawWaveform(audioUrl, canvasId) {
+      try {
+        const response = await fetch(audioUrl);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const data = audioBuffer.getChannelData(0);
+        const step = Math.ceil(data.length / width);
+        const amp = height / 2;
+
+        ctx.strokeStyle = "#00d4ff";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for(let i = 0; i < width; i++){
+          const slice = data.slice(i*step, (i+1)*step);
+          const min = Math.min(...slice);
+          const max = Math.max(...slice);
+          ctx.moveTo(i, (1 + min) * amp);
+          ctx.lineTo(i, (1 + max) * amp);
+        }
+        ctx.stroke();
+      } catch(err) {
+        console.error('Error drawing waveform:', err);
+      }
+    }
+
+    async function loadAdvancedFeaturesVertical() {
+      try {
+        const response = await fetch('/export_csv?ts=' + Date.now());
+        if (!response.ok) throw new Error('Failed to load CSV');
+        const csvText = await response.text();
+        const rows = csvText.trim().split('\n');
+        if (rows.length < 2) return; // No data
+
+        const headers = rows[0].split(',').map(h => h.trim());
+        const lastRow = rows[rows.length - 1].split(',');
+        const container = document.getElementById('advancedFeaturesList');
+        container.innerHTML = '';
+
+        // Mapping CSV headers to readable labels
+        const featureMap = {
+          'advanced_features_audio_before_rms': 'Audio RMS Before',
+          'advanced_features_audio_before_zcr': 'Audio ZCR Before',
+          'advanced_features_audio_before_centroid': 'Audio Centroid Before',
+          'advanced_features_audio_after_rms': 'Audio RMS After',
+          'advanced_features_audio_after_zcr': 'Audio ZCR After',
+          'advanced_features_audio_after_centroid': 'Audio Centroid After',
+          'advanced_features_audio_coeff_norm': 'Audio Coeff Norm',
+          'advanced_features_image_coeff_norm': 'Image Coeff Norm',
+          'advanced_features_image_gabor_mean': 'Gabor Mean',
+          'advanced_features_image_gabor_std': 'Gabor STD',
+          'advanced_features_image_fft_mean': 'Image FFT Mean',
+          'advanced_features_image_fft_std': 'Image FFT STD',
+          'advanced_features_image_edge_mean': 'Image Edge Mean',
+          'advanced_features_image_edge_std': 'Image Edge STD',
+          'advanced_features_image_lap_mean': 'Image Laplacian Mean',
+          'advanced_features_image_lap_std': 'Image Laplacian STD',
+          'elapsed_s': 'Elapsed (s)',
+        };
+
+        // Loop through mapped features and display them
+        Object.keys(featureMap).forEach(key => {
+          const idx = headers.indexOf(key);
+          if (idx >= 0) {
+            let val = lastRow[idx] ? lastRow[idx].trim() : '';
+            // Remove quotes if JSON-like string
+            val = val.replace(/^"+|"+$/g, '');
+            const rowDiv = document.createElement('div');
+            rowDiv.style.display = 'flex';
+            rowDiv.style.justifyContent = 'space-between';
+            rowDiv.style.padding = '2px 0';
+            rowDiv.innerHTML = `<strong>${featureMap[key]}:</strong> <span>${val}</span>`;
+            container.appendChild(rowDiv);
+          }
+        });
+      } catch (err) {
+        console.error('Error loading advanced features:', err);
+      }
+    }
+
+
+
+    async function loadSpeechText() {
+      try {
+        const res = await fetch('/speech_text?ts=' + Date.now());
+        if(!res.ok) throw new Error('Failed to load speech text');
+        const data = await res.json();
+        const container = document.getElementById('speechTextBox');
+        container.innerText = data.speech_text || "(No speech detected)";
+      } catch(err) {
+        console.error("Error loading speech text:", err);
+      }
+    }
+
+    // Event listeners
+    runBtn.addEventListener('click', doRunProcessing);
+    document.querySelectorAll('.img-thumb').forEach(img => {
+      img.addEventListener('click', (e) => {
+        document.getElementById('previewImg').src = e.target.src;
+        const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+        modal.show();
+      });
+    });
+
+    // Initial load
+    loadProcessingLogs();
+    loadAdvancedFeaturesVertical();
+    loadSpeechText();
+  </script>
+</body>
+</html>

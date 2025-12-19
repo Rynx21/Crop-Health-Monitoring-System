@@ -1,0 +1,98 @@
+{
+  "crops": {
+    "tomato": {
+      "name": "Tomato",
+      "icon": "🍅",
+      "detector_model": "detector.pt",
+      "classifier_model": "tomato_classifier.pt",
+      "leaf_classes": {
+        "Tomato_healthy": "Healthy",
+        "Tomato_Bacterial_spot": "Bacterial Spot",
+        "Tomato_Early_blight": "Early Blight",
+        "Tomato_Late_blight": "Late Blight",
+        "Tomato_Leaf_Mold": "Leaf Mold",
+        "Tomato_Septoria_leaf_spot": "Septoria Leaf Spot",
+        "Tomato_Spider_mites_Two_spotted_spider_mite": "Spider Mites",
+        "Tomato__Target_Spot": "Target Spot",
+        "Tomato__Tomato_mosaic_virus": "Mosaic Virus",
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": "Yellow Leaf Curl Virus"
+      },
+      "fruit_classes": {},
+      "enabled": true
+    },
+    "potato": {
+      "name": "Potato",
+      "icon": "🥔",
+      "detector_model": "potato_detector.pt",
+      "classifier_model": "potato_classifier.pt",
+      "leaf_classes": {
+        "Potato___healthy": "Healthy Leaf",
+        "Potato___Early_blight": "Early Blight",
+        "Potato___Late_blight": "Late Blight"
+      },
+      "fruit_classes": {},
+      "enabled": true
+    },
+    "chili": {
+      "name": "Chili Pepper",
+      "icon": "🌶️",
+      "detector_model": "chili_detector.pt",
+      "classifier_model": "chili_classifier.pt",
+      "leaf_classes": {
+        "Pepper__bell___healthy": "Healthy Leaf",
+        "Pepper__bell___Bacterial_spot": "Bacterial Spot"
+      },
+      "fruit_classes": {},
+      "enabled": true
+    },
+    "corn": {
+      "name": "Corn",
+      "icon": "🌽",
+      "detector_model": "corn_detector.pt",
+      "classifier_model": "corn_classifier.pt",
+      "leaf_classes": {
+        "healthy": "Healthy Leaf",
+        "rust": "Corn Rust",
+        "blight": "Corn Blight"
+      },
+      "fruit_classes": {
+        "ripe": "Ripe Corn",
+        "unripe": "Unripe Corn"
+      },
+      "enabled": false
+    },
+
+    "carrot": {
+      "name": "Carrot",
+      "icon": "🥕",
+      "detector_model": "carrot_detector.pt",
+      "classifier_model": "carrot_classifier.pt",
+      "leaf_classes": {
+        "healthy": "Healthy Leaf",
+        "leaf_blight": "Leaf Blight",
+        "powdery_mildew": "Powdery Mildew"
+      },
+      "fruit_classes": {
+        "good": "Good Carrot",
+        "diseased": "Diseased Carrot",
+        "damaged": "Damaged Carrot"
+      },
+      "enabled": false
+    },
+    "rice": {
+      "name": "Rice",
+      "icon": "🌾",
+      "detector_model": "rice_detector.pt",
+      "classifier_model": "rice_classifier.pt",
+      "leaf_classes": {
+        "BrownSpot": "Brown Spot",
+        "Healthy": "Healthy",
+        "Hispa": "Hispa Pest",
+        "LeafBlast": "Leaf Blast"
+      },
+      "fruit_classes": {},
+      "enabled": true
+    }
+  },
+  "default_crop": "tomato"
+}

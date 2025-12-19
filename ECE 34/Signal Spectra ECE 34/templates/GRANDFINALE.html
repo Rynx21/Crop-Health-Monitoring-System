@@ -1,0 +1,169 @@
+<!-- templates/dashboard.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Adaptive Audio & Image Dashboard — Finished</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{background:#0f1724;color:#e6eef8;font-family:Arial;margin:0;padding:16px;}
+    .wrap{max-width:1200px;margin:0 auto;}
+    h1{margin:0 0 12px 0}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    .card{background:#0b1220;padding:12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1;min-width:280px}
+    img,audio{width:100%;border-radius:6px}
+    button{background:#2563eb;color:white;padding:8px 12px;border-radius:6px;border:0;cursor:pointer}
+    pre{background:#07101a;padding:8px;border-radius:6px;max-height:360px;overflow:auto}
+    label{font-size:0.95rem}
+    .small{font-size:0.85rem;color:#9fb2cf}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Adaptive Audio & Image Dashboard</h1>
+
+    <div class="controls">
+      <label>Duration (s):
+        <input id="duration" type="number" min="1" max="20" value="4" style="width:70px;margin-left:6px">
+      </label>
+      <button id="process">Process (record & capture)</button>
+      <button id="reload">Reload Coeffs</button>
+      <button id="export">Export CSV</button>
+      <div style="margin-left:auto" class="small">Using FIR coefficients from <code>micromodeler_coeffs.csv</code></div>
+    </div>
+
+    <div class="row" style="margin-bottom:12px">
+      <div class="col card">
+        <h3>Audio</h3>
+        <audio id="audio_player" controls></audio>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <div style="flex:1"><p class="small">Raw Spectrogram</p><img id="spec_raw" src=""></div>
+          <div style="flex:1"><p class="small">Filtered Spectrogram</p><img id="spec_filt" src=""></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <div style="flex:1"><p class="small">Raw MFCC</p><img id="mfcc_raw" src=""></div>
+          <div style="flex:1"><p class="small">Filtered MFCC</p><img id="mfcc_filt" src=""></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <div style="flex:1"><p class="small">Raw Waveform</p><img id="wave_raw" src=""></div>
+          <div style="flex:1"><p class="small">Filtered Waveform</p><img id="wave_filt" src=""></div>
+        </div>
+      </div>
+
+      <div class="col card">
+        <h3>Images</h3>
+
+        <!-- Raw + Adapted -->
+        <div style="display:flex;gap:8px">
+          <div style="flex:1"><p class="small">Raw Frame</p><img id="img_raw" src=""></div>
+          <div style="flex:1"><p class="small">Adapted Frame</p><img id="img_adapt" src=""></div>
+        </div>
+
+        <!-- NEW: Gray + Edge -->
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="flex:1"><p class="small">Grayscale Frame</p><img id="img_gray" src=""></div>
+          <div style="flex:1"><p class="small">Edge Detection</p><img id="img_edge" src=""></div>
+        </div>
+
+        <!-- NEW: Histograms -->
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="flex:1"><p class="small">Histogram (Grayscale)</p><img id="hist_gray" src=""></div>
+          <div style="flex:1"><p class="small">Histogram (Edge)</p><img id="hist_edge" src=""></div>
+        </div>
+
+        <h4 style="margin-top:12px">Latest Features</h4>
+        <pre id="features">No results yet.</pre>
+      </div>
+    </div>
+  </div>
+
+<script>
+async function setSources(js){
+  if(!js) return;
+
+  document.getElementById('audio_player').src = js.audio.filtered;
+
+  document.getElementById('spec_raw').src = js.images.spec_raw;
+  document.getElementById('spec_filt').src = js.images.spec_filt;
+  document.getElementById('mfcc_raw').src = js.images.mfcc_raw;
+  document.getElementById('mfcc_filt').src = js.images.mfcc_filt;
+  document.getElementById('wave_raw').src = js.images.wave_raw;
+  document.getElementById('wave_filt').src = js.images.wave_filt;
+
+  document.getElementById('img_raw').src = js.images.raw;
+  document.getElementById('img_adapt').src = js.images.adapted;
+
+  /* NEW */
+  document.getElementById('img_gray').src = js.images.gray;
+  document.getElementById('img_edge').src = js.images.edge;
+  document.getElementById('hist_gray').src = js.images.hist_gray;
+  document.getElementById('hist_edge').src = js.images.hist_edge;
+
+  document.getElementById('features').innerText = JSON.stringify(js.features, null, 2);
+}
+
+document.getElementById('process').addEventListener('click', async ()=>{
+  const btn = document.getElementById('process');
+  btn.disabled = true;
+  const dur = Number(document.getElementById('duration').value) || 4;
+  try{
+    const r = await fetch('/process?duration=' + encodeURIComponent(dur));
+    const js = await r.json();
+    if(js.status === 'done'){
+      await setSources(js);
+    } else {
+      alert('Processing failed');
+    }
+  }catch(e){
+    console.error(e);
+    alert('Error: ' + e);
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('reload').addEventListener('click', async ()=>{
+  const r = await fetch('/reload_coeffs');
+  const j = await r.json();
+  alert('Reloaded coeffs: ' + (j.coeffs_loaded ? 'OK' : 'not found'));
+});
+
+document.getElementById('export').addEventListener('click', ()=>{
+  window.location = '/export_csv';
+});
+
+// On load attempt auto-load of last data
+(async ()=>{
+  try{
+    const s = await fetch('/status');
+    const js = await s.json();
+    if(js && js.last && js.last.filtered_audio){
+      const ts = Math.floor((js.last.timestamp || Date.now()));
+      const fake = {
+        audio: { filtered: '/audio?ts=' + ts },
+        images: {
+          raw: '/frame_raw?ts=' + ts,
+          adapted: '/frame?ts=' + ts,
+          spec_raw: '/spec_raw?ts=' + ts,
+          spec_filt: '/spec_filt?ts=' + ts,
+          mfcc_raw: '/mfcc_raw?ts=' + ts,
+          mfcc_filt: '/mfcc_filt?ts=' + ts,
+          wave_raw: '/wave_raw?ts=' + ts,
+          wave_filt: '/wave_filt?ts=' + ts,
+
+          /* NEW AUTO-LOAD */
+          gray: '/gray_frame?ts=' + ts,
+          edge: '/edge_frame?ts=' + ts,
+          hist_gray: '/hist_gray?ts=' + ts,
+          hist_edge: '/hist_edge?ts=' + ts
+        },
+        features: js.last
+      };
+      setSources(fake);
+    }
+  }catch(e){ /* ignore */ }
+})();
+</script>
+</body>
+</html>

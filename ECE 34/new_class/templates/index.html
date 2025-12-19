@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crop Health Monitoring System</title>
+  <style>
+    :root {
+      --dark-green: #047b17;
+      --light-green: #b5f2bf;
+      --sidebar-bg: #034436;
+      --highlight-color: #f8ff60;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #000;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10px;
+      box-sizing: border-box;
+    }
+
+    .sidebar h2 {
+      color: white;
+      font-size: 18px;
+      margin: 10px 10px 50px;
+      align-self: flex-start;
+    }
+
+    .sidebar button {
+      padding: 10px 5px 10px 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--sidebar-bg);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar button.active {
+      background-color: var(--highlight-color);
+      color: black;
+    }
+
+    
+
+    .main {
+      flex: 1;
+      display: flex;
+      gap: 20px;
+      padding: 50px 15px 15px 15px;
+      box-sizing: border-box;
+    }
+
+    .left-panel {
+      flex: 3.1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .right-panel {
+      flex: 1.9;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .tile {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .tile h2 {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .tile img.stream {
+      width: 100%;
+      border-radius: 10px;
+      border: 3px solid #014d3d;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    .sensor-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      gap: 20px;
+    }
+
+    .sensor-entry {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sensor-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .sensor-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .sensor-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .sensor-value {
+      font-size: 14px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .detection-status {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    #currentDetection {
+      font-weight: bold;
+      color: var(--dark-green);
+      font-size: 16px;
+    }
+
+    #currentDetection.healthy {
+      color: #28a745;
+    }
+
+    #currentDetection.early_blight {
+      color: #ffc107;
+    }
+
+    #currentDetection.late_blight {
+      color: #dc3545;
+    }
+
+    #currentDetection.no_detected {
+      color: #6c757d;
+    }
+
+    .weather-today {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: #c8ffd1;
+      border-radius: 12px;
+      padding: 10px 14px;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 12px;
+    }
+
+    .weather-today img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .today-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .today-info .label {
+      font-size: 11px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .temp-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .today-info .temp {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .today-info .min {
+      font-size: 13px;
+      color: #222;
+    }
+
+    .today-info .desc {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .forecast-grid {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .forecast-box {
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      padding: 8px 5px;
+      text-align: center;
+      color: #000;
+      flex: 1;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .forecast-box .temp {
+      font-size: 14px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 3px;
+    }
+
+    .forecast-box .desc {
+      font-size: 10px;
+      color: #666;
+    }
+
+    .forecast-box .date {
+      font-size: 10px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .field-box {
+      height: 310px;
+    }
+
+    /* Logs table styling */
+    .logs-box {
+      max-height: 310px;
+      overflow-y: auto;
+    }
+    table.logs {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table.logs th, table.logs td {
+      border-bottom: 1px solid #eee;
+      padding: 6px 8px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    table.logs th {
+      background: #f7f7f7;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .logs-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .logs-actions button, .logs-actions select {
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div style="width: 100%;">
+        <h2>Crop Health 🌱</h2>
+        <button id="dashboardBtn" class="active">Dashboard</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <div class="tile">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h2 style="margin: 0;">Live Crop Health Detection</h2>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label for="cropSelector" style="font-weight: bold;">Crop:</label>
+              <select id="cropSelector" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+                <option value="">Loading...</option>
+              </select>
+            </div>
+          </div>
+          <img class="stream" src="{{ url_for('video_feed') }}" alt="Camera Stream">
+          <div class="detection-status">
+            <strong>Current Detection:</strong> <span id="currentDetection">Initializing...</span>
+          </div>
+        </div>
+        <div class="tile">
+          <div class="sensor-box">
+            <div class="sensor-entry">
+              <img class="sensor-icon" src="{{ url_for('static', filename='temperature.png') }}">
+              <div class="sensor-info">
+                <div class="sensor-label">Temperature</div>
+                <div class="sensor-value" id="tempVal">-- °C</div>
+              </div>
+            </div>
+            <div class="sensor-entry">
+              <img class="sensor-icon" src="{{ url_for('static', filename='humidity.png') }}">
+              <div class="sensor-info">
+                <div class="sensor-label">Humidity</div>
+                <div class="sensor-value" id="humidityVal">-- %</div>
+              </div>
+            </div>
+            <div class="sensor-entry">
+              <img class="sensor-icon" src="{{ url_for('static', filename='soil.png') }}">
+              <div class="sensor-info">
+                <div class="sensor-label">Soil Moisture</div>
+                <div class="sensor-value" id="soilVal">-- %</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <div class="tile">
+          <h2>Weather Forecast</h2>
+          <div class="weather-today">
+            <img id="weatherIcon" src="{{ url_for('static', filename='sunny.png') }}" alt="Weather Icon" />
+            <div class="today-info">
+              <div class="label">Today</div>
+              <div class="temp-row">
+                <div class="temp" id="todayTemp">--°</div>
+                <div class="min" id="todayMin">/ --°</div>
+              </div>
+              <div class="desc" id="todayDesc">--</div>
+            </div>
+          </div>
+          <div class="forecast-grid" id="forecastBoxes"></div>
+        </div>
+        <div class="tile">
+          <div style="display:flex; align-items:center; justify-content: space-between;">
+            <h2>Detection Logs</h2>
+            <div class="logs-actions">
+              <label for="logsCount" style="font-size:12px;">Show</label>
+              <select id="logsCount">
+                <option value="10">10</option>
+                <option value="15" selected>15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+              <button id="refreshLogs">Refresh</button>
+              <button id="clearLogs" title="Clear all logs">Clear</button>
+            </div>
+          </div>
+          <div class="logs-box">
+            <table class="logs">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Crop</th>
+                  <th>Type</th>
+                  <th>Detection</th>
+                  <th>Accuracy</th>
+                  <th>Confidence</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="logsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sidebarButtons = document.querySelectorAll(".sidebar button:not(.logout-button)");
+    sidebarButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        sidebarButtons.forEach(btn => btn.classList.remove("active"));
+        this.classList.add("active");
+      });
+    });
+
+    
+
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    function getWeatherByCity(city) {
+      fetch("/weather", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city: city })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("todayTemp").textContent = `${Math.round(data.today.temp)}°`;
+        document.getElementById("todayMin").textContent = `/ ${Math.round(data.today.min)}°`;
+        document.getElementById("todayDesc").textContent = `${data.today.main} - ${data.today.description}`;
+        document.getElementById("weatherIcon").src = `/static/${data.today.icon}.png`;
+
+        const forecastBox = document.getElementById("forecastBoxes");
+        forecastBox.innerHTML = "";
+
+        if (!data.forecast || data.forecast.length === 0) {
+          forecastBox.innerHTML = "<div>No forecast data available</div>";
+          return;
+        }
+
+        data.forecast.forEach(day => {
+          const box = document.createElement("div");
+          box.className = "forecast-box";
+          box.innerHTML = `
+            <div class="date">${formatDate(day.timestamp)}</div>
+            <div class="temp">${Math.round(day.temp)}°</div>
+            <div class="desc">${day.description}</div>
+          `;
+          forecastBox.appendChild(box);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching weather:", error);
+        document.getElementById("forecastBoxes").innerHTML = "<div>Weather unavailable</div>";
+      });
+    }
+
+    
+
+    function loadCrops() {
+      fetch("/crops")
+        .then(res => res.json())
+        .then(data => {
+          const selector = document.getElementById("cropSelector");
+          selector.innerHTML = '';
+          
+          data.crops.forEach(crop => {
+            const option = document.createElement("option");
+            option.value = crop.id;
+            option.textContent = `${crop.icon} ${crop.name}`;
+            if (crop.id === data.current) {
+              option.selected = true;
+            }
+            selector.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error("Error loading crops:", error);
+        });
+    }
+
+    function switchCrop(cropId) {
+      fetch("/set_crop", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ crop_id: cropId })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            alert("Error switching crop: " + data.error);
+          } else {
+            console.log("Switched to:", data.crop_name);
+          }
+        })
+        .catch(error => {
+          console.error("Error switching crop:", error);
+          alert("Failed to switch crop");
+        });
+    }
+
+    function updateCurrentDetection() {
+      fetch("/detection_logs/latest/1")
+        .then(res => res.json())
+        .then(data => {
+          const detectionSpan = document.getElementById("currentDetection");
+          if (data.logs && data.logs.length > 0) {
+            const latest = data.logs[0];
+            const cropType = latest['Crop Type'] || 'Unknown';
+            const detectionType = latest['Detection Type'] || 'unknown';
+            const detection = latest.Detection;
+            const confidence = latest.Confidence;
+            const accuracy = latest.Accuracy || latest.Confidence;
+            
+            // Remove all status classes
+            detectionSpan.className = '';
+            
+            // Format display text
+            let displayText = '';
+            const typeLabel = detectionType === 'leaf' ? '🍃' : detectionType === 'fruit' ? '🍎' : '';
+            
+            if (detection === 'no_detected') {
+              displayText = 'No Detection';
+              detectionSpan.classList.add('no_detected');
+            } else {
+              // Generic display for any detection
+              const formattedName = detection.replace(/_/g, ' ')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+              
+              const confNum = parseFloat(confidence);
+              const accNum = parseFloat(accuracy);
+              const confStr = isNaN(confNum) ? (confidence || 'N/A') : `${(confNum*100).toFixed(1)}%`;
+              const accStr = isNaN(accNum) ? (accuracy || 'N/A') : `${(accNum*100).toFixed(1)}%`;
+              displayText = `${typeLabel} ${formattedName} (acc: ${accStr}${confStr!==accStr ? `, conf: ${confStr}`: ''})`;
+              
+              // Apply generic coloring
+              if (detection.includes('healthy') || detection.includes('ripe') || detection.includes('good')) {
+                detectionSpan.classList.add('healthy');
+              } else if (detection.includes('early') || detection.includes('unripe')) {
+                detectionSpan.classList.add('early_blight');
+              } else if (detection.includes('late') || detection.includes('defective')) {
+                detectionSpan.classList.add('late_blight');
+              }
+            }
+            
+            detectionSpan.textContent = displayText;
+          } else {
+            document.getElementById("currentDetection").textContent = "No data yet";
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching detection logs:", error);
+          document.getElementById("currentDetection").textContent = "Error loading";
+        });
+    }
+
+    function toPct(value) {
+      const n = parseFloat(value);
+      if (isNaN(n)) return value || 'N/A';
+      return `${(n * 100).toFixed(1)}%`;
+    }
+
+    function renderLogsTable(logs) {
+      const tbody = document.getElementById('logsBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      // Show newest first
+      const rows = logs.slice().reverse();
+      rows.forEach(item => {
+        const tr = document.createElement('tr');
+        const tdTime = document.createElement('td');
+        const tdCrop = document.createElement('td');
+        const tdType = document.createElement('td');
+        const tdDet = document.createElement('td');
+        const tdAcc = document.createElement('td');
+        const tdConf = document.createElement('td');
+        const tdStatus = document.createElement('td');
+
+        tdTime.textContent = item['Timestamp'] || '';
+        tdCrop.textContent = item['Crop Type'] || '';
+        tdType.textContent = item['Detection Type'] || '';
+        tdDet.textContent = item['Detection'] || '';
+        const accuracy = item['Accuracy'] || item['Confidence'] || '';
+        tdAcc.textContent = toPct(accuracy);
+        tdConf.textContent = toPct(item['Confidence'] || '');
+        tdStatus.textContent = item['Status'] || '';
+
+        tr.appendChild(tdTime);
+        tr.appendChild(tdCrop);
+        tr.appendChild(tdType);
+        tr.appendChild(tdDet);
+        tr.appendChild(tdAcc);
+        tr.appendChild(tdConf);
+        tr.appendChild(tdStatus);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateLogs() {
+      const sel = document.getElementById('logsCount');
+      const count = sel ? parseInt(sel.value, 10) || 15 : 15;
+      fetch(`/detection_logs/latest/${count}`)
+        .then(res => res.json())
+        .then(data => {
+          renderLogsTable(data.logs || []);
+        })
+        .catch(err => console.error('Error fetching logs:', err));
+    }
+
+    function updateSensorData() {
+      fetch("/sensor_data")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("tempVal").textContent =
+            data.temperature !== undefined ? `${data.temperature.toFixed(1)} °C` : "-- °C";
+
+          document.getElementById("humidityVal").textContent =
+            data.humidity !== undefined ? `${data.humidity.toFixed(1)} %` : "-- %";
+
+          document.getElementById("soilVal").textContent =
+            data.soil !== undefined ? `${data.soil} %` : "-- %";
+        })
+        .catch(error => {
+          console.error("Error fetching sensor data:", error);
+        });
+    }
+
+    window.onload = function () {
+      loadCrops();
+      getWeatherByCity("Oton, Iloilo, Philippines");
+      updateSensorData();
+      updateCurrentDetection();
+      updateLogs();
+      setInterval(updateSensorData, 3000);
+      setInterval(updateCurrentDetection, 2000);
+      setInterval(updateLogs, 3000);
+      
+      // Crop selector change handler
+      document.getElementById("cropSelector").addEventListener("change", function(e) {
+        switchCrop(e.target.value);
+      });
+
+      // Logs controls
+      const logsCountSel = document.getElementById('logsCount');
+      const refreshBtn = document.getElementById('refreshLogs');
+      const clearBtn = document.getElementById('clearLogs');
+      if (logsCountSel) logsCountSel.addEventListener('change', updateLogs);
+      if (refreshBtn) refreshBtn.addEventListener('click', updateLogs);
+      if (clearBtn) clearBtn.addEventListener('click', () => {
+        fetch('/detection_logs/clear', { method: 'POST' })
+          .then(() => updateLogs())
+          .catch(err => console.error('Error clearing logs:', err));
+      });
+    };
+  </script>
+</body>
+</html>

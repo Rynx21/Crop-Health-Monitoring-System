@@ -1,0 +1,99 @@
+{
+  "kernel": {
+    "shape": [
+      5,
+      5
+    ],
+    "sum": 0.5,
+    "l1_norm": 2.5,
+    "fro_norm": 1.5155444566227676
+  },
+  "svd": {
+    "singular_values": [
+      1.5058538077693318,
+      0.1694314987126017,
+      0.023922309056730196,
+      1.0749002802039154e-17,
+      6.280387822263277e-19
+    ],
+    "rank_1_error_pct": 11.29046258188467
+  },
+  "separable_1d_filters": {
+    "h_row": [
+      0.02257190731452691,
+      0.04608065471265211,
+      -1.2249848865566495,
+      0.04608065471265225,
+      0.022571907314526775
+    ],
+    "h_col": [
+      0.022571907314526837,
+      0.04608065471265218,
+      -1.2249848865566495,
+      0.04608065471265223,
+      0.022571907314526823
+    ]
+  },
+  "poles_zeros": {
+    "poles_row": [],
+    "poles_col": [],
+    "zeros_row": [
+      {
+        "real": -8.473220007796716,
+        "imag": 0.0,
+        "magnitude": 8.473220007796716,
+        "angle_deg": 180.0
+      },
+      {
+        "real": 6.393320969817538,
+        "imag": 0.0,
+        "magnitude": 6.393320969817538,
+        "angle_deg": 0.0
+      },
+      {
+        "real": 0.1564132326096156,
+        "imag": 0.0,
+        "magnitude": 0.1564132326096156,
+        "angle_deg": 0.0
+      },
+      {
+        "real": -0.11801888763419882,
+        "imag": 0.0,
+        "magnitude": 0.11801888763419882,
+        "angle_deg": 180.0
+      }
+    ],
+    "zeros_col": [
+      {
+        "real": -8.473220007796694,
+        "imag": 0.0,
+        "magnitude": 8.473220007796694,
+        "angle_deg": 180.0
+      },
+      {
+        "real": 6.393320969817525,
+        "imag": 0.0,
+        "magnitude": 6.393320969817525,
+        "angle_deg": 0.0
+      },
+      {
+        "real": 0.15641323260961537,
+        "imag": 0.0,
+        "magnitude": 0.15641323260961537,
+        "angle_deg": 0.0
+      },
+      {
+        "real": -0.11801888763419843,
+        "imag": 0.0,
+        "magnitude": 0.11801888763419843,
+        "angle_deg": 180.0
+      }
+    ]
+  },
+  "interpretation": {
+    "type": "FIR (Finite Impulse Response) high-boost sharpening filter",
+    "stability": "Stable (all poles at origin)",
+    "causality": "Causal (non-recursive)",
+    "dc_gain": "0.5000 (scaled to ~0.2 by L1 norm in backend)"
+  }
+}
