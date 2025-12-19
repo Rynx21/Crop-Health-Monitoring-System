@@ -75,9 +75,9 @@ pip install kaggle
 
 **Dataset Links:**
 - **Tomato**: [PlantVillage Dataset](https://www.kaggle.com/datasets/arjuntejaswi/plant-village)
-- **Potato**: [Potato Disease Classification](https://www.kaggle.com/datasets/vipomonozon/potato-disease-classification)
+- **Potato**: [Potato Disease Classification](https://www.kaggle.com/datasets/aarishasifkhan/plantvillage-potato-disease-dataset)
 - **Chili**: [PlantVillage Pepper Dataset](https://www.kaggle.com/datasets/arjuntejaswi/plant-village)
-- **Rice**: [Rice Leaf Disease Dataset](https://www.kaggle.com/datasets/tedmylo/ricerice-disease-image-dataset)
+- **Rice**: [Rice Leaf Disease Dataset](https://www.kaggle.com/datasets/loki4514/rice-leaf-diseases-detection)
 
 For training, organize datasets as:
 ```
@@ -95,7 +95,7 @@ crop_classifier_dataset/
 - Use the downloader in the app folder to fetch original datasets and organize them into `archive_datasets/{crop}_classifier_dataset/{train,val}` with an 80/20 split.
 - Script: see [ECE 34/new_class/download_datasets.py](ECE%2034/new_class/download_datasets.py)
 
-Quick usage (PowerShell):
+Quick usage (Terminal):
 
 ```powershell
 # Set up Kaggle API (once)
@@ -137,28 +137,26 @@ Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
 - `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
-### Install
 
+### Full documentation including architecture, API endpoints, and code walkthrough: 
+[`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
+
+### Install
 ```powershell
 # Windows (PowerShell) — run from the repository root
 python -m venv .venv
 & ".\.venv\Scripts\Activate.ps1"
-Full documentation including architecture, API endpoints, and code walkthrough: [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
 & ".\.venv\Scripts\python.exe" -m pip install -U pip
 & ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
-
-MIT
-
-## Acknowledgments
+```
 
 ### Run
-
 ```powershell
 $env:ENABLE_IMAGE_ENHANCEMENT = "true"
 $env:ENABLE_SERIAL_READER = "true"
 & ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
-- PlantVillage Dataset
+```
 ### Train Rice (optional)
-
 ```powershell
 & ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
+```
