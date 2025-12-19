@@ -136,7 +136,6 @@ Notes:
 Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
-- `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
  
 ```powershell
 
