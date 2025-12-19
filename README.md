@@ -13,7 +13,7 @@ A Flask-based web application for real-time crop disease detection and classific
 - 🖼️ Configurable image enhancement
 - 🥧 Raspberry Pi optimized
 
-## Supported Crops
+## Supported Crops(more crops will be supported in the future)
 
 - **Tomato** - 10 disease classes
 - **Potato** - 3 disease classes
