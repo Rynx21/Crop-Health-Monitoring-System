@@ -54,17 +54,19 @@ pip install ultralytics opencv-python flask pillow requests pyserial
 
 ## Model Files & Datasets
 
-**Model files (`.pt`) are available in [GitHub Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases).**
+**Option A: Complete bundle (code + models, ~473 MB)**
+1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
+2) Download `Crop-Health-Monitoring-System-complete.zip`
+3) Extract all contents; models are already in `ECE 34/new_class/`
 
-### Download Pre-trained Models
+**Option B: Models only (82 MB total)**
+1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
+2) Download `models.zip`
+3) Extract all `.pt` files to `ECE 34/new_class/`
 
-1. Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
-2. Download `models.zip` from the latest release
-3. Extract all `.pt` files to `ECE 34/new_class/`
-
-**Required models (82 MB total):**
+**Included models:**
 - `detector.pt` (5.96 MB) - Main object detector
-- `classifier.pt` (2.83 MB) - Default classifier
+- `classifier.pt` (2.83 MB) - Fallback classifier
 - `tomato_classifier.pt` (9.81 MB)
 - `potato_classifier.pt` (9.78 MB)
 - `chili_classifier.pt` (9.78 MB)
