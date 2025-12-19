@@ -50,6 +50,15 @@ python -m venv ECE\ 34/.venv
 
 # Install dependencies
 pip install ultralytics opencv-python flask pillow requests pyserial
+
+# Optional (dataset tools)
+# Only needed if you will download datasets via Kaggle
+pip install kaggle
+
+# Notes:
+# - Ultralytics will install PyTorch automatically; GPU is used if available.
+# - If using ESP32-CAM, no extra package is required (HTTP MJPEG stream).
+# - For Raspberry Pi, these defaults are tuned for CPU-only performance.
 ```
 
 ## Model Files & Datasets
