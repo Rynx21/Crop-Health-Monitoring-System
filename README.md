@@ -54,12 +54,12 @@ pip install ultralytics opencv-python flask pillow requests pyserial
 
 ## Model Files & Datasets
 
-**Option A: Complete bundle (code + models, ~473 MB)**
+**A: Complete bundle (code + models, ~473 MB)**
 1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
 2) Download `Crop-Health-Monitoring-System-complete.zip`
 3) Extract all contents; models are already in `ECE 34/new_class/`
 
-**Option B: Models only (82 MB total)**
+**B: Models only (82 MB total)**
 1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
 2) Download `models.zip`
 3) Extract all `.pt` files to `ECE 34/new_class/`
