@@ -54,13 +54,13 @@ ECE 34/
   Only needed if you will download datasets via Kaggle
 ```pip install kaggle```
 
-## Notes:
+## Notes: ##
  - Ultralytics will install PyTorch automatically; GPU is used if available.
  - If using ESP32-CAM, no extra package is required (HTTP MJPEG stream).
  - For Raspberry Pi, these defaults are tuned for CPU-only performance.
 
 
-## Model Files & Datasets
+## Model Files & Datasets ##
 
 **Included models:**
 - `detector.pt` (5.96 MB) - Main object detector
@@ -89,7 +89,7 @@ crop_classifier_dataset/
     Class2/
 ``
 
-### Dataset Management
+### Dataset Management ##
 
 - Use the downloader in the app folder to fetch original datasets and organize them into `archive_datasets/{crop}_classifier_dataset/{train,val}` with an 80/20 split.
 - Script: see [ECE 34/new_class/download_datasets.py](ECE%2034/new_class/download_datasets.py)
@@ -117,7 +117,7 @@ Notes:
 - Ensure `%USERPROFILE%\.kaggle\kaggle.json` exists for Kaggle API access.
 - `DATASET_STATUS.md` was removed; use the downloader for fetching and verification.
 
-## Usage
+## Usage ##
 
 ```powershell
 # Run the server
@@ -130,13 +130,11 @@ Notes:
 & "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\evaluate_model_accuracy.py"
 ```
 
-## Configuration
+## Configuration ##
 
 Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
- 
-```powershell
 
 
 
