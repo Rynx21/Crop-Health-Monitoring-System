@@ -119,17 +119,28 @@ Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
 - `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
+### Install
 
-## Documentation
-
+```powershell
+# Windows (PowerShell) — run from the repository root
+python -m venv .venv
+& ".\.venv\Scripts\Activate.ps1"
 Full documentation including architecture, API endpoints, and code walkthrough: [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
-
-## License
+& ".\.venv\Scripts\python.exe" -m pip install -U pip
+& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
 
 MIT
 
 ## Acknowledgments
 
-- Ultralytics YOLOv8
+### Run
+
+```powershell
+$env:ENABLE_IMAGE_ENHANCEMENT = "true"
+$env:ENABLE_SERIAL_READER = "true"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
 - PlantVillage Dataset
-- OpenWeatherMap API
+### Train Rice (optional)
+
+```powershell
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
