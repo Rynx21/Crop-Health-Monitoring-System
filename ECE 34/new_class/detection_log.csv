@@ -1,0 +1,212 @@
+Timestamp,Crop Type,Detection Type,Detection,Confidence,Status
+2025-12-19 07:15:00,tomato,none,no_detected,N/A,No Detection
+2025-12-19 07:15:02,tomato,leaf,Tomato_Late_blight,0.99,Detected
+2025-12-19 07:15:04,tomato,none,no_detected,N/A,No Detection
+2025-12-19 07:15:07,tomato,leaf,Tomato_Late_blight,1.00,Detected
+2025-12-19 07:15:09,tomato,none,no_detected,N/A,No Detection
+2025-12-19 07:16:39,tomato,leaf,Tomato_Late_blight,0.94,Detected
+2025-12-19 10:00:53,rice,leaf,Healthy,0.4955,low_confidence
+2025-12-19 10:02:58,rice,leaf,Healthy,0.4955,low_confidence
+2025-12-19 14:29:15,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:29:21,tomato,leaf,Tomato_Late_blight,0.71,0.71,Detected
+2025-12-19 14:29:23,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:29:25,tomato,leaf,Tomato_Late_blight,0.95,0.95,Detected
+2025-12-19 14:29:31,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:29:33,tomato,leaf,Tomato_Late_blight,0.87,0.87,Detected
+2025-12-19 14:29:35,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:29:39,tomato,leaf,Tomato_Late_blight,0.89,0.89,Detected
+2025-12-19 14:29:53,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:29:56,tomato,leaf,Tomato__Tomato_YellowLeaf__Curl_Virus,0.81,0.81,Detected
+2025-12-19 14:29:58,tomato,leaf,Tomato_Late_blight,1.00,1.00,Detected
+2025-12-19 14:30:01,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:30:15,tomato,leaf,Tomato__Tomato_YellowLeaf__Curl_Virus,0.90,0.90,Detected
+2025-12-19 14:30:18,tomato,leaf,Tomato_Late_blight,0.83,0.83,Detected
+2025-12-19 14:30:20,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:30:22,tomato,leaf,Tomato_Late_blight,0.95,0.95,Detected
+2025-12-19 14:30:24,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:30:26,tomato,leaf,Tomato_Late_blight,0.94,0.94,Detected
+2025-12-19 14:30:28,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:30:31,tomato,leaf,Tomato_Late_blight,0.93,0.93,Detected
+2025-12-19 14:30:33,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 14:30:35,tomato,leaf,Tomato_Late_blight,0.98,0.98,Detected
+2025-12-19 14:30:37,tomato,leaf,Tomato_Early_blight,0.85,0.85,Detected
+2025-12-19 18:21:34,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 18:21:48,tomato,leaf,Tomato_Late_blight,0.70,0.70,Detected
+2025-12-19 18:21:50,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 18:23:30,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 18:23:52,tomato,leaf,Tomato_Late_blight,0.92,0.92,Detected
+2025-12-19 18:45:32,tomato,leaf,Tomato_Early_blight,0.73,0.73,Detected
+2025-12-19 18:48:24,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:13:48,tomato,leaf,Tomato_Late_blight,0.98,0.98,Detected
+2025-12-19 20:13:50,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:13:53,tomato,leaf,Tomato_Late_blight,0.97,0.97,Detected
+2025-12-19 20:13:57,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:02,tomato,leaf,Tomato_Late_blight,0.92,0.92,Detected
+2025-12-19 20:14:13,chili,leaf,Pepper__bell___Bacterial_spot,0.96,0.96,Detected
+2025-12-19 20:14:17,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:19,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:14:22,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:25,chili,leaf,Pepper__bell___Bacterial_spot,0.76,0.76,Detected
+2025-12-19 20:14:38,chili,leaf,Pepper__bell___healthy,0.72,0.72,Detected
+2025-12-19 20:14:41,chili,leaf,Pepper__bell___Bacterial_spot,0.79,0.79,Detected
+2025-12-19 20:14:43,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:45,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:14:48,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:50,chili,leaf,Pepper__bell___Bacterial_spot,0.89,0.89,Detected
+2025-12-19 20:14:52,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:14:54,chili,leaf,Pepper__bell___healthy,0.98,0.98,Detected
+2025-12-19 20:14:56,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:15:00,chili,leaf,Pepper__bell___Bacterial_spot,0.79,0.79,Detected
+2025-12-19 20:15:03,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:15:06,chili,leaf,Pepper__bell___healthy,0.77,0.77,Detected
+2025-12-19 20:15:08,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:15:14,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:15:16,chili,leaf,Pepper__bell___Bacterial_spot,0.84,0.84,Detected
+2025-12-19 20:16:20,chili,leaf,Pepper__bell___healthy,1.00,1.00,Detected
+2025-12-19 20:16:34,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:16:36,chili,leaf,Pepper__bell___healthy,1.00,1.00,Detected
+2025-12-19 20:16:57,chili,leaf,Pepper__bell___Bacterial_spot,0.81,0.81,Detected
+2025-12-19 20:17:01,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:05,chili,leaf,Pepper__bell___Bacterial_spot,1.00,1.00,Detected
+2025-12-19 20:17:08,chili,leaf,Pepper__bell___healthy,0.95,0.95,Detected
+2025-12-19 20:17:10,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:27,chili,leaf,Pepper__bell___healthy,0.96,0.96,Detected
+2025-12-19 20:17:30,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:32,chili,leaf,Pepper__bell___healthy,1.00,1.00,Detected
+2025-12-19 20:17:34,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:38,chili,leaf,Pepper__bell___healthy,0.79,0.79,Detected
+2025-12-19 20:17:40,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:43,chili,leaf,Pepper__bell___healthy,0.96,0.96,Detected
+2025-12-19 20:17:46,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:49,chili,leaf,Pepper__bell___healthy,0.93,0.93,Detected
+2025-12-19 20:17:51,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:53,chili,leaf,Pepper__bell___healthy,0.71,0.71,Detected
+2025-12-19 20:17:55,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:17:59,chili,leaf,Pepper__bell___healthy,0.96,0.96,Detected
+2025-12-19 20:18:04,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:18:09,chili,leaf,Pepper__bell___healthy,0.91,0.91,Detected
+2025-12-19 20:18:11,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:18:14,chili,leaf,Pepper__bell___healthy,0.96,0.96,Detected
+2025-12-19 20:18:16,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:18:26,chili,leaf,Pepper__bell___Bacterial_spot,0.98,0.98,Detected
+2025-12-19 20:18:44,chili,leaf,Pepper__bell___healthy,0.92,0.92,Detected
+2025-12-19 20:18:54,chili,leaf,Pepper__bell___Bacterial_spot,0.91,0.91,Detected
+2025-12-19 20:18:56,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:01,chili,leaf,Pepper__bell___Bacterial_spot,0.73,0.73,Detected
+2025-12-19 20:19:04,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:07,chili,leaf,Pepper__bell___Bacterial_spot,1.00,1.00,Detected
+2025-12-19 20:19:09,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:11,chili,leaf,Pepper__bell___Bacterial_spot,0.88,0.88,Detected
+2025-12-19 20:19:13,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:15,chili,leaf,Pepper__bell___healthy,0.73,0.73,Detected
+2025-12-19 20:19:17,chili,leaf,Pepper__bell___Bacterial_spot,0.77,0.77,Detected
+2025-12-19 20:19:19,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:30,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:19:32,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:34,chili,leaf,Pepper__bell___healthy,0.91,0.91,Detected
+2025-12-19 20:19:36,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:40,chili,leaf,Pepper__bell___healthy,0.86,0.86,Detected
+2025-12-19 20:19:43,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:49,chili,leaf,Pepper__bell___healthy,0.99,0.99,Detected
+2025-12-19 20:19:51,chili,leaf,Pepper__bell___Bacterial_spot,0.73,0.73,Detected
+2025-12-19 20:19:54,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:19:57,chili,leaf,Pepper__bell___healthy,0.74,0.74,Detected
+2025-12-19 20:19:59,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:20:01,chili,leaf,Pepper__bell___Bacterial_spot,0.87,0.87,Detected
+2025-12-19 20:20:08,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:20:18,chili,leaf,Pepper__bell___Bacterial_spot,0.87,0.87,Detected
+2025-12-19 20:20:21,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:21:23,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:21:25,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:21:28,chili,leaf,Pepper__bell___Bacterial_spot,0.80,0.80,Detected
+2025-12-19 20:21:31,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:21:36,chili,leaf,Pepper__bell___healthy,0.95,0.95,Detected
+2025-12-19 20:21:38,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:21:41,chili,leaf,Pepper__bell___healthy,0.84,0.84,Detected
+2025-12-19 20:21:43,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:21:49,chili,leaf,Pepper__bell___healthy,0.90,0.90,Detected
+2025-12-19 20:21:55,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:22:04,chili,leaf,Pepper__bell___Bacterial_spot,0.76,0.76,Detected
+2025-12-19 20:22:59,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:24:21,chili,leaf,Pepper__bell___healthy,0.73,0.73,Detected
+2025-12-19 20:24:32,chili,leaf,Pepper__bell___Bacterial_spot,0.84,0.84,Detected
+2025-12-19 20:24:41,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:24:53,chili,leaf,Pepper__bell___Bacterial_spot,0.84,0.84,Detected
+2025-12-19 20:24:56,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:26:06,chili,leaf,Pepper__bell___Bacterial_spot,0.97,0.97,Detected
+2025-12-19 20:26:57,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:26:59,chili,leaf,Pepper__bell___Bacterial_spot,0.81,0.81,Detected
+2025-12-19 20:27:01,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:27:13,chili,leaf,Pepper__bell___Bacterial_spot,0.90,0.90,Detected
+2025-12-19 20:27:30,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:27:49,chili,leaf,Pepper__bell___Bacterial_spot,0.79,0.79,Detected
+2025-12-19 20:27:52,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:27:54,chili,leaf,Pepper__bell___Bacterial_spot,0.72,0.72,Detected
+2025-12-19 20:28:05,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:28:11,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:29:25,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:30:52,chili,leaf,Pepper__bell___healthy,0.78,0.78,Detected
+2025-12-19 20:31:39,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:54:41,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:54:43,tomato,leaf,Tomato_Late_blight,0.91,0.91,Detected
+2025-12-19 20:54:45,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:54:51,tomato,leaf,Tomato_Late_blight,0.88,0.88,Detected
+2025-12-19 20:54:53,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:54:58,tomato,leaf,Tomato_Septoria_leaf_spot,0.92,0.92,Detected
+2025-12-19 20:55:02,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:55:09,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:55:11,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:55:13,chili,leaf,Pepper__bell___Bacterial_spot,0.73,0.73,Detected
+2025-12-19 20:55:24,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:55:27,chili,leaf,Pepper__bell___healthy,0.86,0.86,Detected
+2025-12-19 20:55:41,chili,leaf,Pepper__bell___Bacterial_spot,0.87,0.87,Detected
+2025-12-19 20:55:47,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:55:50,chili,leaf,Pepper__bell___healthy,0.92,0.92,Detected
+2025-12-19 20:55:58,chili,leaf,Pepper__bell___Bacterial_spot,0.95,0.95,Detected
+2025-12-19 20:56:02,chili,leaf,Pepper__bell___healthy,0.89,0.89,Detected
+2025-12-19 20:56:04,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:56:12,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:14,chili,leaf,Pepper__bell___healthy,0.99,0.99,Detected
+2025-12-19 20:56:18,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:36,chili,leaf,Pepper__bell___healthy,0.99,0.99,Detected
+2025-12-19 20:56:38,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:40,chili,leaf,Pepper__bell___healthy,1.00,1.00,Detected
+2025-12-19 20:56:45,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:48,chili,leaf,Pepper__bell___healthy,0.77,0.77,Detected
+2025-12-19 20:56:50,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:52,chili,leaf,Pepper__bell___healthy,0.86,0.86,Detected
+2025-12-19 20:56:54,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:56:57,chili,leaf,Pepper__bell___healthy,0.80,0.80,Detected
+2025-12-19 20:56:59,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:57:02,chili,leaf,Pepper__bell___healthy,0.78,0.78,Detected
+2025-12-19 20:57:04,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:57:06,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:57:08,chili,leaf,Pepper__bell___healthy,0.96,0.96,Detected
+2025-12-19 20:57:45,chili,leaf,Pepper__bell___Bacterial_spot,0.83,0.83,Detected
+2025-12-19 20:58:00,chili,leaf,Pepper__bell___healthy,0.79,0.79,Detected
+2025-12-19 20:58:18,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:26,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:58:28,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:30,chili,leaf,Pepper__bell___Bacterial_spot,0.88,0.88,Detected
+2025-12-19 20:58:33,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:35,chili,leaf,Pepper__bell___Bacterial_spot,0.74,0.74,Detected
+2025-12-19 20:58:37,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:39,chili,leaf,Pepper__bell___Bacterial_spot,0.81,0.81,Detected
+2025-12-19 20:58:41,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:45,chili,leaf,Pepper__bell___Bacterial_spot,0.99,0.99,Detected
+2025-12-19 20:58:47,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:51,chili,leaf,Pepper__bell___Bacterial_spot,0.89,0.89,Detected
+2025-12-19 20:58:53,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:58:55,chili,leaf,Pepper__bell___Bacterial_spot,0.90,0.90,Detected
+2025-12-19 20:58:58,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:59:00,chili,leaf,Pepper__bell___Bacterial_spot,0.90,0.90,Detected
+2025-12-19 20:59:02,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 20:59:04,chili,leaf,Pepper__bell___Bacterial_spot,1.00,1.00,Detected
+2025-12-19 21:00:33,chili,leaf,Pepper__bell___healthy,0.73,0.73,Detected
+2025-12-19 21:00:41,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 21:02:29,chili,leaf,Pepper__bell___Bacterial_spot,0.85,0.85,Detected
+2025-12-19 21:03:40,chili,none,no_detected,N/A,N/A,No Detection
+2025-12-19 21:06:25,chili,leaf,Pepper__bell___Bacterial_spot,0.89,0.89,Detected
+2025-12-19 23:22:56,tomato,none,no_detected,N/A,N/A,No Detection
+2025-12-19 23:23:00,tomato,leaf,Tomato_Late_blight,0.96,0.96,Detected
+2025-12-19 23:23:11,tomato,none,no_detected,N/A,N/A,No Detection
