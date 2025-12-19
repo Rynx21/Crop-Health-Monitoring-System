@@ -60,18 +60,10 @@ pip install kaggle
 # - If using ESP32-CAM, no extra package is required (HTTP MJPEG stream).
 # - For Raspberry Pi, these defaults are tuned for CPU-only performance.
 ```
-
-## Model Files & Datasets
-
-**A: Complete bundle (code + models, ~473 MB)**
+**Downloads:**
 1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
-2) Download `Crop-Health-Monitoring-System-complete.zip`
-3) Extract all contents; models are already in `ECE 34/new_class/`
-
-**B: Models only (82 MB total)**
-1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
-2) Download `models.zip`
-3) Extract all `.pt` files to `ECE 34/new_class/`
+2) Download All Files
+3) Put all files to `ECE 34/new_class/`
 
 **Included models:**
 - `detector.pt` (5.96 MB) - Main object detector
