@@ -42,17 +42,17 @@ ECE 34/
 ## Installation
 
 **Clone repository**
-```git clone <your-repo-url> && cd "ECE 34 (1)" ```
+- ```git clone <your-repo-url> && cd "ECE 34 (1)" ```
 
 **Create virtual environment**
-```python -m venv ECE\ 34/.venv & "ECE 34\.venv\Scripts\Activate.ps1"```
+- ```python -m venv ECE\ 34/.venv & "ECE 34\.venv\Scripts\Activate.ps1"```
 
 **Install dependencies**
-```pip install ultralytics opencv-python flask pillow requests pyserial```
+- ```pip install ultralytics opencv-python flask pillow requests pyserial```
 
 **Optional (dataset tools)**
   Only needed if you will download datasets via Kaggle
-```pip install kaggle```
+- ```pip install kaggle```
 
 ## Notes: ##
  - Ultralytics will install PyTorch automatically; GPU is used if available.
@@ -79,7 +79,7 @@ ECE 34/
 - **Rice**: [Rice Leaf Disease Dataset](https://www.kaggle.com/datasets/tedmylo/ricerice-disease-image-dataset)
 
 For training, organize datasets as:
-``
+```
 crop_classifier_dataset/
   train/
     Class1/
@@ -87,7 +87,7 @@ crop_classifier_dataset/
   val/
     Class1/
     Class2/
-``
+```
 
 ### Dataset Management ##
 
@@ -135,21 +135,3 @@ Notes:
 Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-```powershell
-
