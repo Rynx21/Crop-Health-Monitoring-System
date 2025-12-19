@@ -20,9 +20,6 @@ Install into your existing virtual environment (from repository root):
 python -m venv .venv
 & ".\.venv\Scripts\Activate.ps1"
 & ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
-
-# Optional: Kaggle (only if you'll use import_datasets.py to download datasets)
-& ".\.venv\Scripts\python.exe" -m pip install kaggle
 ```
 
 ## Configuration
@@ -44,12 +41,7 @@ $env:ENABLE_IMAGE_ENHANCEMENT = "true"
 $env:ENABLE_SERIAL_READER = "true"
 # $env:ESP32_URL = "http://<esp32-ip>:81/stream"  # uncomment to use ESP32-CAM
 
-# From repository root
 & ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
-
-# Or from the app folder
-cd "ECE 34\new_class"
-python app.py
 ```
 
 - Access the web UI via your browser (default Flask host/port; update `app.py` if you want a specific host/port).
@@ -78,7 +70,7 @@ Class folder names must match keys in `leaf_classes` for the crop in `crops_conf
 ## Train the Rice Classifier
 
 - Ensure dataset exists at `ECE 34/new_class/rice_classifier_dataset` as shown above.
-- Start training (from repository root):
+- Start training:
 
 ```powershell
 & ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"

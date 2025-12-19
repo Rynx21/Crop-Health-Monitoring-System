@@ -13,7 +13,7 @@ A Flask-based web application for real-time crop disease detection and classific
 - 🖼️ Configurable image enhancement
 - 🥧 Raspberry Pi optimized
 
-## Supported Crops(more crops will be supported in the future)
+## Supported Crops
 
 - **Tomato** - 10 disease classes
 - **Potato** - 3 disease classes
@@ -42,40 +42,28 @@ ECE 34/
 ```powershell
 # Clone repository
 git clone <your-repo-url>
-cd "ECE 34 (1)"
+cd <repo-folder>
 
-# Create virtual environment
-python -m venv ECE\ 34/.venv
-& "ECE 34\.venv\Scripts\Activate.ps1"
-
-# Install dependencies
-pip install ultralytics opencv-python flask pillow requests pyserial
-
-# Optional (dataset tools)
-# Only needed if you will download datasets via Kaggle
-pip install kaggle
-
-# Notes:
-# - Ultralytics will install PyTorch automatically; GPU is used if available.
-# - If using ESP32-CAM, no extra package is required (HTTP MJPEG stream).
-# - For Raspberry Pi, these defaults are tuned for CPU-only performance.
+# Windows (PowerShell) — create and activate venv
+python -m venv .venv
+& ".\.venv\Scripts\Activate.ps1"
+& ".\.venv\Scripts\python.exe" -m pip install -U pip
+& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
 ```
 
 ## Model Files & Datasets
 
-**A: Complete bundle (code + models, ~473 MB)**
-1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
-2) Download `Crop-Health-Monitoring-System-complete.zip`
-3) Extract all contents; models are already in `ECE 34/new_class/`
+**Model files (`.pt`) are available in [GitHub Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases).**
 
-**B: Models only (82 MB total)**
-1) Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
-2) Download `models.zip`
-3) Extract all `.pt` files to `ECE 34/new_class/`
+### Download Pre-trained Models
 
-**Included models:**
+1. Go to [Releases](https://github.com/Rynx21/Crop-Health-Monitoring-System/releases)
+2. Download `models.zip` from the latest release
+3. Extract all `.pt` files to `ECE 34/new_class/`
+
+**Required models (82 MB total):**
 - `detector.pt` (5.96 MB) - Main object detector
-- `classifier.pt` (2.83 MB) - Fallback classifier
+- `classifier.pt` (2.83 MB) - Default classifier
 - `tomato_classifier.pt` (9.81 MB)
 - `potato_classifier.pt` (9.78 MB)
 - `chili_classifier.pt` (9.78 MB)
@@ -104,13 +92,13 @@ crop_classifier_dataset/
 
 ```powershell
 # Run the server
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
 
 # Train rice classifier (example)
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
 
 # Evaluate model accuracy
-& "ECE 34\.venv\Scripts\python.exe" "ECE 34\new_class\evaluate_model_accuracy.py"
+& ".\.venv\Scripts\python.exe" "ECE 34\new_class\evaluate_model_accuracy.py"
 ```
 
 ## Configuration
@@ -119,28 +107,17 @@ Environment variables:
 - `ENABLE_IMAGE_ENHANCEMENT`: Enable/disable image enhancement (default: true)
 - `ENABLE_SERIAL_READER`: Enable Arduino sensor reading (default: true)
 - `ESP32_URL`: ESP32-CAM MJPEG stream URL (optional)
-### Install
 
-```powershell
-# Windows (PowerShell) — run from the repository root
-python -m venv .venv
-& ".\.venv\Scripts\Activate.ps1"
+## Documentation
+
 Full documentation including architecture, API endpoints, and code walkthrough: [`ECE 34/new_class/README.md`](ECE%2034/new_class/README.md)
-& ".\.venv\Scripts\python.exe" -m pip install -U pip
-& ".\.venv\Scripts\python.exe" -m pip install ultralytics opencv-python flask pillow requests pyserial
+
+## License
 
 MIT
 
 ## Acknowledgments
 
-### Run
-
-```powershell
-$env:ENABLE_IMAGE_ENHANCEMENT = "true"
-$env:ENABLE_SERIAL_READER = "true"
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\app.py"
+- Ultralytics YOLOv8
 - PlantVillage Dataset
-### Train Rice (optional)
-
-```powershell
-& ".\.venv\Scripts\python.exe" "ECE 34\new_class\train_rice_enhanced.py"
+- OpenWeatherMap API
